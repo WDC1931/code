@@ -4,11 +4,15 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 // var logger = require('morgan');
 const log = require('./middleware/log');
+const valid = require('./common/valid');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+app.valid = valid;
+
+app.disable('x-powered-by');
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -43,6 +47,11 @@ app.use(function(err, req, res, next) {
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+// 全局捕获 Rejection
+process.on('unhandledRejection', (reason, p) => {
+  log.fatal(reason);
 });
 
 module.exports = app;
