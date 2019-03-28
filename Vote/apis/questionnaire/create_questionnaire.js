@@ -1,20 +1,20 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const sequelize = require('../../models/model').sequelize;
+const sequelize = require("../../models/model").sequelize;
 
-const utils = require('../../common/utils');
-const log = require('../../middleware/log');
+const utils = require("../../common/utils");
+const log = require("../../middleware/log");
 
 // const QuestionnaireService = require('../../services/questionnaire/questionnaire.service');
-const QuestionService = require('../../services/question/question.service');
-const OptionService = require('../../services/option/option.service');
+const QuestionService = require("../../services/question/question.service");
+const OptionService = require("../../services/option/option.service");
 
-const QuestionFormat = require('../../services/question/question.format');
-const OptionFormat = require('../../services/option/option.format');
+const QuestionFormat = require("../../services/question/question.format");
+const OptionFormat = require("../../services/option/option.format");
 
 // 参数校验
 const validateParams = (req, res, next) => {
-  utils.validateParams(req, res, next, ['title', 'questions']);
+  utils.validateParams(req, res, next, ["title", "questions"]);
 };
 
 // 添加用户
@@ -62,17 +62,17 @@ const createQuestionnaire = (req, res, next) => {
     .then(() => {
       res.locals.addResult = utils.dealSuccess(
         { questionnaireId },
-        '创建问卷成功'
+        "创建问卷成功"
       );
       next();
     })
     .catch(err => {
       log.error(err);
-      res.json(utils.dealFail(null, '创建问卷失败'));
+      res.json(utils.dealFail(null, "创建问卷失败"));
     });
 };
 
-router.post('/', validateParams, createQuestionnaire, (req, res, next) => {
+router.post("/", validateParams, createQuestionnaire, (req, res, next) => {
   res.json(res.locals.addResult);
 });
 
