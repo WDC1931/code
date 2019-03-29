@@ -1,0 +1,44 @@
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, width=device-width">
+  <title>
+    <%= error.status %>
+  </title>
+  <style>
+    body {
+      padding-top: 100px;
+      background: #f0f2f5;
+      text-align: center;
+    }
+
+    h1 {
+      color: #434e59;
+      font-size: 72px;
+      font-weight: 600;
+      line-height: 72px;
+      margin-bottom: 24px;
+    }
+
+    div {
+      color: rgba(0, 0, 0, .45);
+      font-size: 20px;
+      line-height: 28px;
+      margin-bottom: 32px;
+    }
+
+    img {
+      max-width: 100%;
+    }
+
+  </style>
+  <div class="error <%= error.status %>">
+    <h1>
+      <%= error.status %>
+    </h1>
+    <div>
+      <%= error.status === 404 ? '抱歉，你访问的页面不存在' : '' %>
+      <%= error.status === 500 ? '抱歉，服务器出错了' : '' %>
+    </div>
+    <img src="<%= error.status === 404 ? 'https://gw.alipayobjects.com/zos/rmsportal/KpnpchXsobRgLElEozzI.svg' : '' %><%= error.status === 500 ? 'https://gw.alipayobjects.com/zos/rmsportal/RVRUAYdCGeYNBWoKiIwB.svg' : '' %>">
+  </div>

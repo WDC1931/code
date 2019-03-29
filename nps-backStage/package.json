@@ -1,0 +1,29 @@
+{
+  "name": "keel",
+  "description": "基于 Express 的 API 中台开发框架",
+  "version": "0.0.3",
+  "private": true,
+  "scripts": {
+    "start": "nodemon node ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "ejs": "~2.5.7",
+    "express": "~4.15.5",
+    "log4js": "^2.5.3",
+    "moment": "^2.22.1",
+    "morgan": "~1.9.0",
+    "multer": "^1.4.1",
+    "mysql2": "^1.5.1",
+    "nodemon": "^1.18.9",
+    "poplib": "^0.1.7",
+    "qr-image": "^3.2.0",
+    "sequelize": "^4.32.2",
+    "serve-favicon": "~2.4.5",
+    "superagent": "^3.8.2",
+    "uuid": "^3.2.1",
+    "xxtea-node": "^1.1.2"
+  }
+}
