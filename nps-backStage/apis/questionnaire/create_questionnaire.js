@@ -5,7 +5,7 @@ const sequelize = require('../../models/model').sequelize;
 const utils = require('../../common/utils');
 const log = require('../../middleware/log');
 
-const QuestionnaireService = require('../../services/questionnaire/questionnaire.service');
+// const QuestionnaireService = require('../../services/questionnaire/questionnaire.service');
 const QuestionService = require('../../services/question/question.service');
 const OptionService = require('../../services/option/option.service');
 
@@ -14,7 +14,7 @@ const OptionFormat = require('../../services/option/option.format');
 
 // 参数校验
 const validateParams = (req, res, next) => {
-  utils.validateParams(req, res, next, ['title', 'questions', 'userId']);
+  utils.validateParams(req, res, next, ['title', 'questions']);
 };
 
 // 添加用户
@@ -24,7 +24,7 @@ const createQuestionnaire = (req, res, next) => {
   const title = params.title;
   const describe = params.describe || null;
   const questions = params.questions;
-  const userId = parseInt(params.userId);
+  // const userId = parseInt(params.userId);
 
   const questionnaireInfo = {
     title,
@@ -32,35 +32,53 @@ const createQuestionnaire = (req, res, next) => {
   };
 
   // 可选参数
-  describe && (questionnaireInfo.describe = describe);
+  // describe && (questionnaireInfo.describe = describe);
 
   let questionnaireId = null;
 
   sequelize
+    // .transaction(transaction => {
+    //   return QuestionnaireService.createQuestionnaire({
+    //     questionnaireInfo,
+    //     transaction
+    //   })
+    //     .then(ret => {
+    //       questionnaireId = ret.questionnaireId;
+    //       let questionList = QuestionFormat.QuestionAddQuestionnaireId({
+    //         questionnaireId,
+    //         questions: JSON.parse(questions)
+    //       });
+    //       return QuestionService.createQuestion({
+    //         questionList,
+    //         transaction
+    //       });
+    //     })
+    //     .then(questionList => {
+    //       let optionList = OptionFormat.OptionAddQuestion({
+    //         questionList,
+    //         questions: JSON.parse(questions)
+    //       });
+    //       return OptionService.createOption({ optionList, transaction });
+    //     });
+    // })
+
     .transaction(transaction => {
-      return QuestionnaireService.createQuestionnaire({
-        questionnaireInfo,
+      let questionList = QuestionFormat.QuestionAddQuestionnaireId({
+        questions: JSON.parse(questions)
+      });
+      return QuestionService.createQuestion({
+        questionList,
         transaction
       })
-        .then(ret => {
-          questionnaireId = ret.questionnaireId;
-          let questionList = QuestionFormat.QuestionAddQuestionnaireId({
-            questionnaireId,
-            questions: JSON.parse(questions)
-          });
-          return QuestionService.createQuestion({
-            questionList,
-            transaction
-          });
-        })
-        .then(questionList => {
-          let optionList = OptionFormat.OptionAddQuestion({
-            questionList,
-            questions: JSON.parse(questions)
-          });
-          return OptionService.createOption({ optionList, transaction });
+      .then(questionList => {
+        let optionList = OptionFormat.OptionAddQuestion({
+          questionList,
+          questions: JSON.parse(questions)
         });
+        return OptionService.createOption({ optionList, transaction });
+      });
     })
+    
     .then(() => {
       res.locals.addResult = utils.dealSuccess(
         { questionnaireId },

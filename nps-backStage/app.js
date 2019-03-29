@@ -42,7 +42,7 @@ app.use('*', (req, res, next) => {
   next()
 })
 app.use('/', index);
-app.use('/nps', apis);
+app.use('/vote', apis);
 
 app.use('/h5', express.static(path.join(__dirname, 'webapp/dist')));
 
