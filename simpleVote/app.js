@@ -4,8 +4,8 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// 路由信息（接口地址），存放在routes的根目录
+var vote = require('./routes/vote');
 
 var app = express();
 
@@ -19,8 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// 配置路由，（'自定义路径'，上面设置的接口地址）
+app.use('/vote', vote);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
