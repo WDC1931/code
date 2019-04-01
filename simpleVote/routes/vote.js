@@ -1,4 +1,5 @@
 const express = require('express');
+var url = require("url")
 
 var router = express.Router();
 const connection = require('../config/DBConfig');
@@ -12,7 +13,7 @@ connection.connect(function (err) {
     console.log('connection connect succeed!');
 });
 
-// 保存投票数据
+// 保存投票
 router.post('/save', function (req, res, next) {
     var type = req.body.type;
     var deadline = req.body.deadline;
@@ -22,33 +23,50 @@ router.post('/save', function (req, res, next) {
     var options = req.body.options;
 
     connection.query(
-        "insert into vote_list(type,deadline,anonymity,title,detail,options) values('" + type + "','" + deadline + "','" + anonymity + "','" + title + "','" + detail + "','" + options + "')", 
+        "insert into vote_list(type,deadline,anonymity,title,detail,options) values('" + type + "','" + deadline + "','" + anonymity + "','" + title + "','" + detail + "','" + options + "')",
 
         function (err, result) {
-        if (err) {
-            res.send("保存失败" + err);
-        } else {
-            res.send({
-            'msg' : "保存成功",
-            'voteId' : result.insertId,
+            if (err) {
+                res.send ("保存失败" + err);
+            } else {
+                res.send ("保存成功,问卷id为：" + result.insertId);
+            }
         });
+});
+
+// 返回投票列表
+router.get('/list', function (req, res, next) {
+
+    var sql = "select * from vote_list";
+
+    connection.query(sql, function (err, result) {
+        if (err) {
+            res.send("查询失败:");
+        } else {
+            res.send(result);
         }
     });
 });
 
-// 查询投票
-// router.get('/serach', function (req, res, next) {
-//     var name = req.param.name;
-//     var age = req.param.age;
-//     var sql = "select * from user where age=22";
+// 查询投票（根据ID）
+router.get('/serach', function (req, res, next) {
 
-//     connection.query(sql,function(err,rows){
-//         if(err){
-//             res.send("查询失败: "+err);
-//         }else{
-//             return res.jsonp(rows);
-//         }
-//     });
-// });
+    var params = url.parse(req.url, true).query;
+    var id = params.voteId;
+    console.log(params);
+    var sql = "select * from vote_list where voteId = '"+ id +"'";
+
+    connection.query(sql, function (err, result) {
+        if (err) {
+            res.send("查询失败: " + err);
+        } else {
+            res.send({
+                'msg': "查询成功",
+                'result': result,
+            });
+        }
+    });
+});
+
 
 module.exports = router;
