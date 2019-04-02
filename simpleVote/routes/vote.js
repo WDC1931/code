@@ -75,7 +75,7 @@ router.post("/upload", upload.single("file"), function(req, res, next) {
   console.log("文件大小：", file.size);
   console.log("文件保存路径：", file.path);
 
-  res.send("上传成功，文件保存路径为：" + file.path);
+  res.send("Url：" + file.path);
 });
 
 // 图片下载
