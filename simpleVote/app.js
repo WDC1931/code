@@ -39,7 +39,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-// 解决跨域问题
+// 允许跨域访问
 app.all('*', function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "http://localhost:3000"); //为了跨域保持session,所以指定地址,不能用*
   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
