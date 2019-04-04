@@ -44,6 +44,7 @@ router.post("/upload", upload.single("file"), function (req, res, next) {
   // console.log("文件大小：", file.size);
   // console.log("文件保存路径：", file.path);
   res.send({
+    msg: '上传成功',
     Url: file.path,
   });
 });
