@@ -4,32 +4,43 @@ var multer = require("multer");
 var fs = require("fs");
 
 var router = express.Router();
-const connection = require("../config/DBConfig");
-const voteSQL = require("../dao/vote.dao");
+const voteList = require("../models/vote.model");
+
+// 初始化表
+// voteList.sync({ force: true })
+//   .then(() => console.log("SUCCESS CREATE TABLE List"))
+//   .catch(err => console.log(err));
 
 // 保存投票
-router.post("/save", function (req, res, next) {
+router.post("/save", function(req, res, next) {
   var body = req.body;
-  connection.query(voteSQL.insert, [body.type, body.deadline, body.anonymity, body.isLimit, body.title, body.detail, body.optionsType, body.options, body.totalNum], function (err, result) {
-    if (err) {
-      res.send("保存失败" + err);
-    } else {
+
+  voteList.create({
+    type: body.type,
+    deadline: body.deadline,
+    anonymity: body.anonymity,
+    isLimit: body.isLimit,
+    title: body.title,
+    detail: body.detail,
+    optionsType: body.optionsType,
+    options: body.options,
+    totalNum: body.totalNum
+  })
+    .then(data => {
       res.send({
         msg: "保存成功!",
-        result: result.insertId
+        result: data.id
       });
-    }
-  });
+    })
+    .catch(err => {
+      res.send(err);
+    });
 });
 
 // 投票列表
-router.get("/list", function (req, res, next) {
-  connection.query(voteSQL.queryAll, function (err, result) {
-    if (err) {
-      res.send("查询失败:");
-    } else {
-      res.send(result);
-    }
+router.get("/list", function(req, res, next) {
+  voteList.findAll().then(data => {
+    res.send(data);
   });
 });
 
@@ -37,20 +48,20 @@ router.get("/list", function (req, res, next) {
 var upload = multer({
   dest: "public/images/vote"
 });
-router.post("/upload", upload.single("file"), function (req, res, next) {
+router.post("/upload", upload.single("file"), function(req, res, next) {
   var file = req.file;
   // console.log("文件类型：", file.mimetype);
   // console.log("原始文件名：", file.originalname);
   // console.log("文件大小：", file.size);
   // console.log("文件保存路径：", file.path);
   res.send({
-    msg: '上传成功',
-    Url: file.path,
+    msg: "上传成功",
+    Url: file.path
   });
 });
 
 // 图片下载
-router.get("/acquire", function (req, res, next) {
+router.get("/acquire", function(req, res, next) {
   var params = url.parse(req.url, true).query;
   var path = params.path;
   var data = fs.readFileSync("./" + path);
@@ -58,16 +69,26 @@ router.get("/acquire", function (req, res, next) {
 });
 
 // 更新票数
-router.post("/update", function (req, res, next) {
+router.post("/update", function(req, res, next) {
   var body = req.body;
 
-  connection.query(voteSQL.update, [body.options, body.totalNum, body.voteId], function (err, rows) {
-    if (err) {
-      res.send("更新失败" + err);
-    } else {
-      res.send("更新成功");
+  voteList.update(
+    {
+      options: body.options,
+      totalNum: body.totalNum
+    },
+    {
+      where: { id: body.voteId }
     }
-  });
+  )
+    .then(() => {
+      res.send({
+        msg: "更新成功!"
+      });
+    })
+    .catch(err => {
+      res.send(err);
+    });
 });
 
 module.exports = router;

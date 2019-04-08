@@ -28,7 +28,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static('./public/dist'));
+app.use(express.static('./public'));
 
 // 配置路由，（'自定义路径'，上面设置的接口地址）
 app.use('/vote', vote);
