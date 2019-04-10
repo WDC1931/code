@@ -1,0 +1,11 @@
+{
+    "apps": [{
+            "name": "backStage",
+            "script": "bin/www"
+        },
+        {
+            "name": "authorization",
+            "script": "authorization.js"
+        }
+    ]
+}
