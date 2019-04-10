@@ -1,32 +1,14 @@
 let express = require("express");
 const https = require("https");
-const path = require("path");
 let app = express();
-//appID
-let appID = `wx1fcb05ddddb5108d`;
-//appsecret
-let appSerect = `12f9a67d76f46a10b807ef669e1ffb5d`;
-//点击授权后重定向url地址
-let redirectUrl = `/getUserInfo`;
-let host = `http://10.21.6.47:8800`;
 
-//微信授权api,接口返回code,点击授权后跳转到重定向地址并带上code参数
-let authorizeUrl =
-  `https://open.weixin.qq.com/connect/oauth2/authorize?appid=${appID}&redirect_uri=` +
-  `${host}&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect`;
-  // ${redirectUrl}
-app.get("/activity", function(req, res) {
-  res.writeHead(302, {
-    Location: authorizeUrl
-  });
-  res.end();
-});
-
-https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx1fcb05ddddb5108d&redirect_uri=http://10.21.6.47:8800&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect
+let appID = `wx71d6759ad2387bc6`;
+let appSerect = `5c6505144776cfdcaf189ae8203c33b9`;
 
 app.get("/getUserInfo", function(req, res) {
   wxAuth(req, res);
 });
+
 async function wxAuth(req, res) {
   //解析querystring获取URL中的code值
   let code = req.query.code;
@@ -37,7 +19,7 @@ async function wxAuth(req, res) {
   let open_id = resObj.openid;
   //通过上一步获取的access_token和open_id获取userInfo即用户信息
   let userObj = await getUserInfo(access_token, open_id);
-  console.log(userObj);
+  // console.log(userObj);
   res.send(userObj);
 }
 
