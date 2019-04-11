@@ -6,11 +6,6 @@ var fs = require("fs");
 var router = express.Router();
 const voteList = require("../models/vote.model");
 
-// 初始化表
-// voteList.sync({ force: true })
-//   .then(() => console.log("SUCCESS CREATE TABLE List"))
-//   .catch(err => console.log(err));
-
 // 保存投票
 router.post("/save", function(req, res, next) {
   var body = req.body;

@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 const connection = require("../config/DBConfig");
+const moment =require("moment");
 
 var voteList = connection.define('vote_lists', {
   type: {
@@ -7,8 +8,11 @@ var voteList = connection.define('vote_lists', {
     notNull: true
   },
   deadline: {
-    type: Sequelize.DATE(6),
-    notNull: true
+    type: Sequelize.DATE,
+    notNull: true,
+    get() {
+      return moment(this.getDataValue('deadline')).format('YYYY-MM-DD HH:mm:ss');
+    }
   },
   anonymity: {
     type: Sequelize.INTEGER,
