@@ -7,6 +7,7 @@ var logger = require('morgan');
 // 路由信息（接口地址），存放在routes的根目录
 var vote = require('./routes/vote');
 var quiz = require('./routes/quiz');
+var auth = require('./routes/auth');
 
 var app = express();
 
@@ -33,6 +34,7 @@ app.use(express.static('./public'));
 // 配置路由，（'自定义路径'，上面设置的接口地址）
 app.use('/vote', vote);
 app.use('/quiz', quiz);
+app.use('/auth', auth);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
