@@ -9,7 +9,7 @@ var vote = require('./routes/vote');
 var quiz = require('./routes/quiz');
 var sport = require('./routes/sport');
 var wxacode = require('./controllers/wechat/wxacodeUnlimited');
-var login = require('./routes/login');
+// var login = require('./routes/login');
 
 var app = express();
 
@@ -38,7 +38,7 @@ app.use('/vote', vote);
 app.use('/quiz', quiz);
 app.use('/wxacode', wxacode);
 app.use('/sport', sport);
-app.use('/login', login);
+// app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
