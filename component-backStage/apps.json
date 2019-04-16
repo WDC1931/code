@@ -2,10 +2,6 @@
     "apps": [{
             "name": "backStage",
             "script": "bin/www"
-        },
-        {
-            "name": "authorization",
-            "script": "routes/auth.js"
         }
     ]
 }

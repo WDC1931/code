@@ -2,9 +2,9 @@ const Sequelize = require("sequelize");
 var fs = require("fs");
 
 const DBConfig = {
-  database: "votes",
-  user: "voter",
-  password: "voter123",
+  database: "component",
+  user: "member",
+  password: "component@member001",
   host: "localhost",
   dialect: "mysql"
 };

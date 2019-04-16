@@ -4,10 +4,12 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// 路由信息（接口地址），存放在routes的根目录
+// 路由信息（接口地址）
 var vote = require('./routes/vote');
 var quiz = require('./routes/quiz');
-var auth = require('./routes/auth');
+var sport = require('./routes/sport');
+var wxacode = require('./controllers/wechat/wxacodeUnlimited');
+var login = require('./routes/login');
 
 var app = express();
 
@@ -34,7 +36,9 @@ app.use(express.static('./public'));
 // 配置路由，（'自定义路径'，上面设置的接口地址）
 app.use('/vote', vote);
 app.use('/quiz', quiz);
-app.use('/auth', auth);
+app.use('/wxacode', wxacode);
+app.use('/sport', sport);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

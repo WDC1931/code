@@ -10,17 +10,18 @@ const voteList = require("../models/vote.model");
 router.post("/save", function(req, res, next) {
   var body = req.body;
 
-  voteList.create({
-    type: body.type,
-    deadline: body.deadline,
-    anonymity: body.anonymity,
-    isLimit: body.isLimit,
-    title: body.title,
-    detail: body.detail,
-    optionsType: body.optionsType,
-    options: body.options,
-    totalNum: body.totalNum
-  })
+  voteList
+    .create({
+      type: body.type,
+      deadline: body.deadline,
+      anonymity: body.anonymity,
+      isLimit: body.isLimit,
+      title: body.title,
+      detail: body.detail,
+      optionsType: body.optionsType,
+      options: body.options,
+      totalNum: body.totalNum
+    })
     .then(data => {
       res.send({
         msg: "保存成功!",
@@ -45,10 +46,7 @@ var upload = multer({
 });
 router.post("/upload", upload.single("file"), function(req, res, next) {
   var file = req.file;
-  // console.log("文件类型：", file.mimetype);
-  // console.log("原始文件名：", file.originalname);
-  // console.log("文件大小：", file.size);
-  // console.log("文件保存路径：", file.path);
+  console.log("文件类型：",file.mimetype,"原始文件名：",file.size,"文件保存路径：",file.path);
   res.send({
     msg: "上传成功",
     Url: file.path
@@ -67,15 +65,16 @@ router.get("/acquire", function(req, res, next) {
 router.post("/update", function(req, res, next) {
   var body = req.body;
 
-  voteList.update(
-    {
-      options: body.options,
-      totalNum: body.totalNum
-    },
-    {
-      where: { id: body.voteId }
-    }
-  )
+  voteList
+    .update(
+      {
+        options: body.options,
+        totalNum: body.totalNum
+      },
+      {
+        where: { id: body.voteId }
+      }
+    )
     .then(() => {
       res.send({
         msg: "更新成功!"
