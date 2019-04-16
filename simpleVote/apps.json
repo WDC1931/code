@@ -5,7 +5,7 @@
         },
         {
             "name": "authorization",
-            "script": "authorization.js"
+            "script": "routes/auth.js"
         }
     ]
 }
