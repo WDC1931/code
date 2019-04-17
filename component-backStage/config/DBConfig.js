@@ -47,16 +47,16 @@ function delDir(path) {
  * 打开重置数据库
  * 生产环境必须关闭
  */
-// connection
-//   .sync({ force: true })
-//   .then(() => {
-//     delDir("public/images/quiz"); //删除quiz目录下所有文件
-//     delDir("public/images/vote"); //删除vote目录下所有文件
-//     console.log("数据库初始化成功");
-//   })
-//   .catch(err => {
-//     console.log("数据库初始化失败");
-//     console.log(err);
-//   });
+connection
+  .sync({ force: true })
+  .then(() => {
+    delDir("public/images/quiz"); //删除quiz目录下所有文件
+    delDir("public/images/vote"); //删除vote目录下所有文件
+    console.log("数据库初始化成功");
+  })
+  .catch(err => {
+    console.log("数据库初始化失败");
+    console.log(err);
+  });
 
 module.exports = connection;
