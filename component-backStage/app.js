@@ -4,8 +4,11 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// 路由信息（接口地址）
+var vote = require('./apis/vote');
+var quiz = require('./apis/quiz');
+var sport = require('./apis/sport');
+var wxacode = require('./controllers/wechat/wxacodeUnlimited');
 
 var app = express();
 
@@ -19,8 +22,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// 配置路由，（'自定义路径'，上面设置的接口地址）
+app.use('/vote', vote);
+app.use('/quiz', quiz);
+app.use('/sport', sport);
+app.use('/wxacode', wxacode);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
