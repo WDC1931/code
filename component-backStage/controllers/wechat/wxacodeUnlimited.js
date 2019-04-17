@@ -5,6 +5,7 @@ let url = require("url");
 
 var router = express.Router();
 
+// 翼企投小程序
 let appID = `wx71d6759ad2387bc6`;
 let appSerect = `5c6505144776cfdcaf189ae8203c33b9`;
 

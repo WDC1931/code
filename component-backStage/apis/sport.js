@@ -4,10 +4,7 @@ var router = express.Router();
 const sportList = require("../models/sport.model");
 const login = require('../controllers/wechat/login');
 
-router.post('/', login);
-router.all('/', function(req, res, next){
-  res.sendStatus(403);
-});
+router.get('/login', login);
 
 // 保存信息
 router.post("/save", function(req, res, next) {
