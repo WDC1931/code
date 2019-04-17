@@ -1,0 +1,12 @@
+[2019-04-17T17:08:36.358] [DEBUG] default - sequelize 初始化完成
+[2019-04-17T17:08:36.775] [ERROR] default - Error Error: Redis connection to localhost:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+[2019-04-17T17:09:34.586] [DEBUG] default - sequelize 初始化完成
+[2019-04-17T17:09:35.510] [ERROR] default - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+[2019-04-17T17:18:41.569] [DEBUG] default - sequelize 初始化完成
+[2019-04-17T17:18:42.506] [ERROR] default - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+[2019-04-17T17:38:37.449] [INFO] access - ::ffff:10.21.6.49 - - "GET /?code=021OIzna09AV9z1tsHma0GhBna0OIznA&state=STATE HTTP/1.1" 404 2214 "" "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1902010 MicroMessenger/6.7.3 Language/zh_CN webview/15554936695432506 webdebugger port/45731"
+[2019-04-17T17:38:37.651] [INFO] access - ::ffff:10.21.6.49 - - "GET /favicon.ico HTTP/1.1" 404 2214 "http://10.21.6.49:3000/?code=021OIzna09AV9z1tsHma0GhBna0OIznA&state=STATE" "Mozilla/5.0 (iPhone; CPU iPhone OS 9_1 like Mac OS X) AppleWebKit/601.1.46 (KHTML, like Gecko) Version/9.0 Mobile/13B143 Safari/601.1 wechatdevtools/1.02.1902010 MicroMessenger/6.7.3 Language/zh_CN webview/15554936695432506 webdebugger port/45731"
+[2019-04-17T17:39:29.825] [INFO] access - ::1 - - "GET /login/list?code=021OIzna09AV9z1tsHma0GhBna0OIznA&appid=wx1fcb05ddddb5108d HTTP/1.1" 404 2257 "" "PostmanRuntime/7.6.1"
+[2019-04-17T17:41:19.939] [DEBUG] default - sequelize 初始化完成
+[2019-04-17T17:41:20.887] [ERROR] default - Error Error: Redis connection to 127.0.0.1:6379 failed - connect ECONNREFUSED 127.0.0.1:6379
+[2019-04-17T17:41:26.093] [INFO] access - ::1 - - "GET /login/list?code=021OIzna09AV9z1tsHma0GhBna0OIznA&appid=wx1fcb05ddddb5108d HTTP/1.1" 404 1883 "" "PostmanRuntime/7.6.1"
