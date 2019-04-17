@@ -1,0 +1,7 @@
+{
+    "apps": [{
+            "name": "backStage",
+            "script": "bin/www"
+        }
+    ]
+}
