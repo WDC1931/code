@@ -5,11 +5,14 @@ var cookieParser = require('cookie-parser');
 // var logger = require('morgan');
 const log4js = require('./config/log4js.config');
 
-
 const login = require('./routes/login');
+
+const db = require('./models');
 
 
 var app = express();
+
+app.db = db;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

@@ -27,14 +27,14 @@ Object.keys(db).forEach(modelName => {
   }
 });
 
-// sequelize.sync().then(
-//   () => {
-//     logger.debug('sequelize 初始化完成');
-//   }
-// ).catch(err => {
-//   logger.error('sequelize 初始化失败');
-//   logger.error(err);
-// })
+sequelize.sync().then(
+  () => {
+    logger.debug('sequelize 初始化完成');
+  }
+).catch(err => {
+  logger.error('sequelize 初始化失败');
+  logger.error(err);
+})
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
