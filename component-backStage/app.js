@@ -4,41 +4,23 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
-// 路由信息（接口地址）
-var vote = require('./routes/vote');
-var quiz = require('./routes/quiz');
-var sport = require('./routes/sport');
-var wxacode = require('./controllers/wechat/wxacodeUnlimited');
-// var login = require('./routes/login');
+var indexRouter = require('./routes/index');
+var usersRouter = require('./routes/users');
 
 var app = express();
 
-// 允许跨域访问
-// app.all('*', function(req, res, next) {
-//   res.header("Access-Control-Allow-Origin", "*"); //为了跨域保持session,所以指定地址,不能用*
-//   res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
-//   res.header("Access-Control-Allow-Headers", "X-Requested-With");
-//   res.header('Access-Control-Allow-Headers', 'Content-Type');
-//   res.header('Access-Control-Allow-Credentials', true);
-//   next();
-// });
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static('./public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
-// 配置路由，（'自定义路径'，上面设置的接口地址）
-app.use('/vote', vote);
-app.use('/quiz', quiz);
-app.use('/wxacode', wxacode);
-app.use('/sport', sport);
-// app.use('/login', login);
+app.use('/', indexRouter);
+app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
