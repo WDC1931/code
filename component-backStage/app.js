@@ -8,7 +8,7 @@ var logger = require('morgan');
 var vote = require('./apis/vote');
 var quiz = require('./apis/quiz');
 var sport = require('./apis/sport');
-var wxacode = require('./controllers/wechat/wxacodeUnlimited');
+var wxacode = require('./controllers/wechat/WXAcodeUnlimited');
 
 var app = express();
 

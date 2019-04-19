@@ -4,7 +4,11 @@ var multer = require("multer");
 var fs = require("fs");
 
 var router = express.Router();
-const voteList = require("../models/vote.model");
+const voteList = require("../models/votePub.model");
+const login = require("../controllers/wechat/login");
+
+// 小程序授权
+router.post("/login", login);
 
 // 保存投票
 router.post("/save", function(req, res, next) {
@@ -46,7 +50,14 @@ var upload = multer({
 });
 router.post("/upload", upload.single("file"), function(req, res, next) {
   var file = req.file;
-  console.log("文件类型：",file.mimetype,"原始文件名：",file.size,"文件保存路径：",file.path);
+  console.log(
+    "文件类型：",
+    file.mimetype,
+    "原始文件名：",
+    file.size,
+    "文件保存路径：",
+    file.path
+  );
   res.send({
     msg: "上传成功",
     Url: file.path

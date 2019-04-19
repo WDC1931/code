@@ -2,17 +2,21 @@ const Sequelize = require("sequelize");
 const connection = require("../config/DBConfig");
 
 var sportList = connection.define("sport_lists", {
-  home: {
+  activity: {
     type: Sequelize.TEXT,
-    notNull: false
+    allowNull: false
   },
-  user: {
+  graph: {
     type: Sequelize.TEXT,
-    notNull: false
+    allowNull: false
   },
-  ranking: {
+  assistance: {
     type: Sequelize.TEXT,
-    notNull: false
+    allowNull: true
+  },
+  award: {
+    type: Sequelize.TEXT,
+    allowNull: true
   }
 });
 

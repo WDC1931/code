@@ -4,7 +4,7 @@ var multer = require("multer");
 var fs = require("fs");
 
 var router = express.Router();
-const quizList = require("../models/quiz.model");
+const quizList = require("../models/quizPub.model");
 
 // 保存问答
 router.post("/save", function(req, res, next) {
