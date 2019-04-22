@@ -29,7 +29,8 @@ var sportUser = connection.define("sport_users", {
   },
   correlation: {
     type: Sequelize.TEXT,
-    allowNull: true
+    allowNull: true,
+    defaultValue: ''
   }
 });
 

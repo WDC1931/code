@@ -1,4 +1,6 @@
 const express = require("express");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 let router = express.Router();
 const sportUser = require("../models/sportUser.model");
@@ -174,9 +176,49 @@ router.post("/share", function(req, res, next) {
 // 好友列表
 router.post("/friendList", function(req, res, next) {
   let body = req.body;
+  sportUser
+    .findAll({
+      where: { openId: body.openId }
+    })
+    .then(data => {
+      return new Promise((resolve, reject) => {
+        let obj = data[0].dataValues;
+        let relation = obj.correlation;
+        let relArry = relation.split(",");
 
+        sportUser
+          .findAll({
+            where: {
+              openId: {
+                [Op.in]: relArry
+              }
+            }
+          })
+          .then(arrData => {
+            let stepArry = [];
 
-
+            for (let i of arrData) {
+              let a = i.get({
+                plain: true
+              });
+              stepArry.push({
+                openId: a.openId,
+                avatarUrl: a.avatarUrl,
+                nickName: a.nickName,
+                step: a.step
+              });
+            }
+            function Sort(x, y) {
+              return y.step - x.step;
+            }
+            stepArry.sort(Sort)
+            resolve(stepArry);
+          });
+      });
+    })
+    .then(stepArry => {
+      res.send(stepArry);
+    });
 });
 
 module.exports = router;
