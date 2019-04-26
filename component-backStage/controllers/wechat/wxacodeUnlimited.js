@@ -6,8 +6,8 @@ let url = require("url");
 var router = express.Router();
 
 // 翼企投小程序
-let appID = `wx71d6759ad2387bc6`;
-let appSerect = `5c6505144776cfdcaf189ae8203c33b9`;
+let appID = `wxab2a143730f199c7`;
+let appSerect = `41332570aedd739bd35b16a1f56d0e9a`;
 
 // 获取小程序码
 router.get("/getUnlimited", async function(req, res) {

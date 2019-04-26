@@ -131,6 +131,7 @@ router.post("/user", function(req, res, next) {
             nickName: body.nickName,
             avatarUrl: body.avatarUrl,
             step: body.step,
+            allStep: body.step,
             oddStep: body.step,
             energy: body.energy,
             exchange: body.exchange,
@@ -148,6 +149,63 @@ router.post("/user", function(req, res, next) {
             res.send(err);
           });
       }
+    });
+});
+
+// 更新步数
+router.post("/countStep", function(req, res, next) {
+  let body = req.body;
+
+  sportUser
+    .findAll({
+      where: { openId: body.openId }
+    })
+    .then(data => {
+      let obj = data[0].dataValues;
+      let step = obj.allStep;
+      let time = JSON.stringify(obj.createdAt);
+      let date = time.split('"')[1].split("T")[0];
+      let allStep = parseInt(body.step) + step;
+      if (date == body.date) {
+        if (body.openId > allStep) {
+          sportUser.update(
+            {
+              allStep: body.step
+            },
+            {
+              where: {
+                openId: body.openId
+              }
+            }
+          );
+        } else {
+          sportUser.update(
+            {
+              allStep: allStep
+            },
+            {
+              where: {
+                openId: body.openId
+              }
+            }
+          );
+        }
+      } else {
+        sportUser.update(
+          {
+            allStep: allStep
+          },
+          {
+            where: {
+              openId: body.openId
+            }
+          }
+        );
+      }
+      res.send({allStep});
+    })
+    .catch(err => {
+      res.send(err);
     });
 });
 
@@ -183,7 +241,7 @@ router.post("/judge", function(req, res, next) {
       let arr = relation.split(",");
       let judge = arr.indexOf(body.guestOpenId);
       if (judge == -1) {
-        if(arr.length > 6) {
+        if (arr.length > 6) {
           res.send({
             msg: "助力超过5人！",
             code: 1
@@ -194,7 +252,6 @@ router.post("/judge", function(req, res, next) {
             code: -1
           });
         }
-        
       } else {
         res.send({
           msg: "已是好友",
