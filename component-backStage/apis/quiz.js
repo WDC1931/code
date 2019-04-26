@@ -15,6 +15,7 @@ router.post("/save", function(req, res, next) {
       fonts: body.fonts,
       class: body.class,
       title: body.title,
+      intro: body.intro,
       home: body.home,
       behavior: body.behavior,
       finsh: body.finsh,
@@ -50,6 +51,36 @@ router.get("/search", function(req, res, next) {
     .catch(err => {
       res.send(err);
     });
+});
+
+// 问答更新
+router.post("/update", function(req, res, next) {
+  var body = req.body;
+
+  voteList
+    .update(
+      {
+        intro: body.intro,
+      },
+      {
+        where: { id: body.quizId }
+      }
+    )
+    .then(() => {
+      res.send({
+        msg: "更新成功!"
+      });
+    })
+    .catch(err => {
+      res.send(err);
+    });
+});
+
+// 问答列表
+router.get("/list", function(req, res, next) {
+  quizList.findAll().then(data => {
+    res.send(data);
+  });
 });
 
 // 图片上传

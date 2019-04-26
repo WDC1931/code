@@ -7,7 +7,7 @@ var router = express.Router();
 const voteList = require("../models/votePub.model");
 const login = require("../controllers/wechat/login");
 
-// 小程序授权
+// 小程序登录
 router.post("/login", login);
 
 // 保存投票
@@ -50,14 +50,7 @@ var upload = multer({
 });
 router.post("/upload", upload.single("file"), function(req, res, next) {
   var file = req.file;
-  console.log(
-    "文件类型：",
-    file.mimetype,
-    "原始文件名：",
-    file.size,
-    "文件保存路径：",
-    file.path
-  );
+  
   res.send({
     msg: "上传成功",
     Url: file.path

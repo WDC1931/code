@@ -9,8 +9,19 @@ var vote = require('./apis/vote');
 var quiz = require('./apis/quiz');
 var sport = require('./apis/sport');
 var wxacode = require('./controllers/wechat/WXAcodeUnlimited');
+var micro_video = require('./apis/micro_video');
 
 var app = express();
+
+// 允许跨域访问
+app.all('*', function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*"); //为了跨域保持session,所以指定地址,不能用*
+  res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, OPTIONS');
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  res.header('Access-Control-Allow-Credentials', true);
+  next();
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -23,10 +34,11 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 配置路由，（'自定义路径'，上面设置的接口地址）
-app.use('/vote', vote);
-app.use('/quiz', quiz);
-app.use('/sport', sport);
-app.use('/wxacode', wxacode);
+app.use('/cloudapp/vote', vote);
+app.use('/cloudapp/quiz', quiz);
+app.use('/cloudapp/sport', sport);
+app.use('/cloudapp/wxacode', wxacode);
+app.use('/cloudapp/micro_video', micro_video);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

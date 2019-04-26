@@ -5,38 +5,38 @@ const moment =require("moment");
 var voteList = connection.define('vote_lists', {
   type: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: false
   },
   deadline: {
     type: Sequelize.DATE,
-    allowNull: true,
+    allowNull: false,
     get() {
       return moment(this.getDataValue('deadline')).format('YYYY-MM-DD HH:mm:ss');
     }
   },
   anonymity: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: false
   },
   isLimit: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: false
   },
   title: {
     type: Sequelize.STRING,
-    allowNull: true
+    allowNull: false
   },
   detail: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: true
   },
   optionsType: {
     type: Sequelize.INTEGER,
-    allowNull: true
+    allowNull: false
   },
   options: {
     type: Sequelize.TEXT,
-    allowNull: true
+    allowNull: false
   },
   totalNum: {
     type: Sequelize.INTEGER,

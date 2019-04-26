@@ -4,13 +4,17 @@ const connection = require("../config/DBConfig");
 var quizList = connection.define("quiz_lists", {
   fonts: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: true
   },
   class: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: true
   },
   title: {
+    type: Sequelize.TEXT,
+    allowNull: true
+  },
+  intro: {
     type: Sequelize.TEXT,
     allowNull: true
   },
@@ -24,7 +28,7 @@ var quizList = connection.define("quiz_lists", {
   },
   finsh: {
     type: Sequelize.TEXT,
-    allowNull: false
+    allowNull: true
   },
   analysis: {
     type: Sequelize.TEXT,
